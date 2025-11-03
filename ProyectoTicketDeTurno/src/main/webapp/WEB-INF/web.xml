@@ -1,11 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <!-- ==========================================
+         CONFIGURACIÓN GENERAL
+    =========================================== -->
+    <display-name>Sistema de Turnos</display-name>
+
+    <!-- Página por defecto -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ==========================================
+         SERVLETS PRINCIPALES (usuarios)
+    =========================================== -->
+
+    <!-- Login -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controlador.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <!-- Registro de Turno -->
+    <servlet>
+        <servlet-name>RegistrarTurnoServlet</servlet-name>
+        <servlet-class>controlador.RegistrarTurnoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistrarTurnoServlet</servlet-name>
+        <url-pattern>/registrar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- Consultar Turno -->
+    <servlet>
+        <servlet-name>ConsultarTurnoServlet</servlet-name>
+        <servlet-class>controlador.ConsultarTurnoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConsultarTurnoServlet</servlet-name>
+        <url-pattern>/consultar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- Actualizar Turno -->
+    <servlet>
+        <servlet-name>ActualizarTurnoServlet</servlet-name>
+        <servlet-class>controlador.ActualizarTurnoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActualizarTurnoServlet</servlet-name>
+        <url-pattern>/actualizar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- Cancelar Turno -->
+    <servlet>
+        <servlet-name>CancelarTurnoServlet</servlet-name>
+        <servlet-class>controlador.CancelarTurnoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CancelarTurnoServlet</servlet-name>
+        <url-pattern>/cancelar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- ==========================================
+         ADMINISTRACIÓN
+    =========================================== -->
+
+    <!-- Login del Admin -->
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>controlador.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+
+    <!-- Gestionar Turnos -->
+    <servlet>
+        <servlet-name>GestionarTurnosServlet</servlet-name>
+        <servlet-class>controlador.GestionarTurnosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GestionarTurnosServlet</servlet-name>
+        <url-pattern>/admin/gestionar-turnos</url-pattern>
+    </servlet-mapping>
+
+    <!-- Actualizar Estatus Turno -->
+    <servlet>
+        <servlet-name>ActualizarEstatusServlet</servlet-name>
+        <servlet-class>controlador.ActualizarEstatusServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActualizarEstatusServlet</servlet-name>
+        <url-pattern>/admin/actualizar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- Gestionar Municipios -->
+    <servlet>
+        <servlet-name>GestionarMunicipiosServlet</servlet-name>
+        <servlet-class>controlador.GestionarMunicipiosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GestionarMunicipiosServlet</servlet-name>
+        <url-pattern>/admin/gestionar-municipios</url-pattern>
+    </servlet-mapping>
+
+    <!-- Agregar Municipio -->
+    <servlet>
+        <servlet-name>AgregarMunicipioServlet</servlet-name>
+        <servlet-class>controlador.AgregarMunicipioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AgregarMunicipioServlet</servlet-name>
+        <url-pattern>/admin/agregar-municipio</url-pattern>
+    </servlet-mapping>
+
+    <!-- ==========================================
+         FILTROS Y CONFIG EXTRA
+    =========================================== -->
+
+    <!-- Codificación UTF-8 global -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>filtros.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Sesión para proteger el admin -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filtros.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

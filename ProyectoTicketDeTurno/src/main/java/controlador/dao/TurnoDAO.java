@@ -2,12 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fabroysebadev.proyectoticketdeturno.dao;
-import com.fabroysebadev.proyectoticketdeturno.model.Turno;
-import com.fabroysebadev.proyectoticketdeturno.util.DatabaseConnection;
-import java.sql.*;
+package controlador.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import controlador.model.Turno;
+import controlador.util.DatabaseConnection;
 
 /**
  *

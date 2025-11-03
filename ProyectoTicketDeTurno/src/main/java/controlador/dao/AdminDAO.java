@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fabroysebadev.proyectoticketdeturno.dao;
-import org.mindrot.jbcrypt.BCrypt;
-
-import com.fabroysebadev.proyectoticketdeturno.model.Admin;
-import com.fabroysebadev.proyectoticketdeturno.util.DatabaseConnection;
+package controlador.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import controlador.model.Admin;
+import controlador.util.DatabaseConnection;
 
 /**
  *

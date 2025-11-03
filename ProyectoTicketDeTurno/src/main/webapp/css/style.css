@@ -1,0 +1,141 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f3f5fa;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+header {
+    background-color: #004aad;
+    color: white;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    max-width: 600px;
+    margin: 2em auto;
+    background-color: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    margin-top: 0.5em;
+    padding: 0.6em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 1.5em;
+    padding: 0.8em;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #00337a;
+}
+
+.centered {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #004aad;
+    color: white;
+    padding: 1em 1.5em;
+    margin: 0.5em;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn.secondary {
+    background-color: #6c757d;
+}
+
+.btn:hover {
+    background-color: #00337a;
+}
+
+.link {
+    color: #004aad;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+/* ==== ESTILO PANEL ADMIN ==== */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    padding: 1em;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: #004aad;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #00337a;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1em;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}

@@ -1,4 +1,5 @@
-package com.fabroysebadev.proyectoticketdeturno;
+package controlador;
+
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
