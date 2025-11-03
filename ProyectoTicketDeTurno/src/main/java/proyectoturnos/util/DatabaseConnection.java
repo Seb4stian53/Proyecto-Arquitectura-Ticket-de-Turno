@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador.util;
+package proyectoturnos.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,17 +19,12 @@ public class DatabaseConnection {
     //Implementación del Singleton
     
     private static DatabaseConnection instance;
-    
-    private Connection connection;
         
     private DatabaseConnection(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            System.out.println("conexion exitosa :D");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("Error al conectar a la base :c -  " + e.getMessage());
-            throw new RuntimeException("No se pudo conectar a la base de datos :O, " + e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("No se encontró el driver de MYSQL :O, " + e);
         }
     }
     
@@ -42,19 +37,8 @@ public class DatabaseConnection {
     }
     
     //Metodo para obtener la conexion
-    public Connection getConnection(){
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
     
-    //Metodo para cerrar la conexion
-    public void closeConnection(){
-        try {
-            if(connection != null && !connection.isClosed()){
-                connection.close();
-                System.out.println("Conexion a la base cerrada :D");
-            }
-        } catch(SQLException e) {
-            System.err.println("Error al cerrar la conexion :c - " + e.getMessage());
-        }
-    }
 }

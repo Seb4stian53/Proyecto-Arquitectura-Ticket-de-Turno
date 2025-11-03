@@ -24,8 +24,8 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         // Verifica si el admin está autenticado
-        boolean loggedIn = (session != null && session.getAttribute("adminUsuario") != null);
-        String loginURI = request.getContextPath() + "/admin/login.jsp";
+        boolean loggedIn = (session != null && session.getAttribute("administrador") != null);
+        String loginURI = request.getContextPath() + "/login.jsp";
 
         boolean loginRequest = request.getRequestURI().equals(loginURI);
 

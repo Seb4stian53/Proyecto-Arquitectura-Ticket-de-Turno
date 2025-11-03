@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador.dao;
+package proyectoturnos.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +11,8 @@ import java.sql.Statement;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import controlador.model.Admin;
-import controlador.util.DatabaseConnection;
+import proyectoturnos.model.Admin;
+import proyectoturnos.util.DatabaseConnection;
 
 /**
  *
@@ -23,23 +23,38 @@ public class AdminDAO {
     public Admin validarCredenciales(String usuario, String contrasenaPlana){
         Admin admin = null;
         String sql = "SELECT * FROM administradores WHERE usuario = ?";
-        try (Connection conn = DatabaseConnection.getInstance().getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getInstance().getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, usuario);
             
             try(ResultSet rs = ps.executeQuery()) {
                 if(rs.next()) {
                     String hashGuardado = rs.getString("contrasena");
-                    if(BCrypt.checkpw(contrasenaPlana, hashGuardado)) {
+                    //if(BCrypt.checkpw(contrasenaPlana, hashGuardado)) {
+                    if (contrasenaPlana.equals(hashGuardado)) {
                         int id = rs.getInt("id_admin");
                         String usuarioDB = rs.getString("usuario");
                         admin = new Admin(id, usuarioDB, hashGuardado);
+                        System.out.println("Login exitoso usuario: " + admin.getUsuario());
                     }
                 }
             }
+        }
+        
         } catch(SQLException e) {
             System.err.println("Error al validar credenciales: " + e.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        System.out.println("por mi parte esta bien el login");
         return admin;
     }
     

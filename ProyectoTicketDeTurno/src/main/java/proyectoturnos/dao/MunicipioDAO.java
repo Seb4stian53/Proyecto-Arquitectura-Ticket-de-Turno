@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador.dao;
-import controlador.model.Municipio;
-import controlador.util.DatabaseConnection;
+package proyectoturnos.dao;
+import proyectoturnos.model.Municipio;
+import proyectoturnos.util.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -20,14 +20,7 @@
     =========================================== -->
 
     <!-- Login -->
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>controlador.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
+    
 
     <!-- Registro de Turno -->
     <servlet>
@@ -74,14 +67,7 @@
     =========================================== -->
 
     <!-- Login del Admin -->
-    <servlet>
-        <servlet-name>AdminLoginServlet</servlet-name>
-        <servlet-class>controlador.AdminLoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminLoginServlet</servlet-name>
-        <url-pattern>/admin/login</url-pattern>
-    </servlet-mapping>
+    
 
     <!-- Gestionar Turnos -->
     <servlet>

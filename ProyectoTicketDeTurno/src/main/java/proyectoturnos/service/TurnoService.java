@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador.service;
-import controlador.dao.TurnoDAO;
-import controlador.model.Turno;
-import controlador.util.DatabaseConnection;
+package proyectoturnos.service;
+import proyectoturnos.dao.TurnoDAO;
+import proyectoturnos.model.Turno;
+import proyectoturnos.util.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 /**

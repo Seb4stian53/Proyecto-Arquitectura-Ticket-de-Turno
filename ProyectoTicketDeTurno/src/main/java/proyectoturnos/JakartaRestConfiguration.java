@@ -1,4 +1,4 @@
-package controlador;
+package proyectoturnos;
 
 
 import jakarta.ws.rs.ApplicationPath;

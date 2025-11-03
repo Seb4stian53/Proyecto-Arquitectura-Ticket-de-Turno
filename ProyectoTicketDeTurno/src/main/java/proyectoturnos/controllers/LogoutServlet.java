@@ -1,4 +1,4 @@
-package controlador;
+package proyectoturnos.controllers;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
