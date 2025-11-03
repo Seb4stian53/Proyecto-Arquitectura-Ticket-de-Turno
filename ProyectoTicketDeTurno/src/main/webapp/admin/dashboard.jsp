@@ -15,6 +15,7 @@
         <a href="dashboard.jsp">Dashboard</a> |
         <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
         <a href="gestionar_municipios.jsp">Municipios</a> |
+          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
         <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>

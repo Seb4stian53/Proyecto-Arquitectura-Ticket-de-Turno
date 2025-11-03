@@ -31,7 +31,6 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre del Municipio</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
