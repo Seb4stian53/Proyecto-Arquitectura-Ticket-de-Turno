@@ -1,0 +1,236 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f3f5fa;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+header {
+    background-color: #611233;
+    color: white;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    max-width: 600px;
+    margin: 2em auto;
+    background-color: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    margin-top: 0.5em;
+    padding: 0.6em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 1.5em;
+    padding: 0.8em;
+    background-color: #3a0b1e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #300717;
+}
+
+.centered {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #3a0b1e;
+    color: white;
+    padding: 1em 1.5em;
+    margin: 0.5em;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn.secondary {
+    background-color: #6c757d;
+}
+
+.btn:hover {
+    background-color: #300717;
+}
+
+.link {
+    color: #3a0b1e;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+/* ==== ESTILO PANEL ADMIN ==== */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    padding: 1em;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: #3a0b1e;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #300717;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1em;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Contenedor de la tabla para un posible desplazamiento en móviles */
+.table-container {
+    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+}
+
+.data-table {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    border-collapse: collapse; /* Une los bordes de las celdas */
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px; /* Bordes redondeados para la tabla */
+    overflow: hidden; /* Asegura que el contenido respete los bordes redondeados */
+}
+
+/* Estilos para el encabezado de la tabla (thead) */
+.data-table thead tr {
+    background-color: #009879; /* Un color de acento profesional */
+    color: #ffffff; /* Texto blanco */
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Estilos para las celdas del encabezado (th) y del cuerpo (td) */
+.data-table th,
+.data-table td {
+    padding: 12px 15px; /* Espaciado interno para que no se vea apretado */
+}
+
+/* Estilos para las filas del cuerpo de la tabla (tbody) */
+.data-table tbody tr {
+    border-bottom: 1px solid #dddddd; /* Línea divisoria entre filas */
+}
+
+/* "Zebra striping" - Colores alternos para las filas para mejorar la legibilidad */
+.data-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* La última fila no necesita una línea divisoria debajo */
+.data-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+/* Efecto hover: cambia el color de fondo de la fila cuando el cursor está encima */
+.data-table tbody tr:hover {
+    font-weight: bold;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Estilos para botones o enlaces dentro de la tabla */
+.data-table .btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.data-table .btn.danger {
+    background-color: #dc3545;
+}
+
+.data-table .btn.danger:hover {
+    background-color: #c82333;
+}
+
+.estatus-cancelado { color: #dc3545; }
+.estatus-resuelto { color: #009879; }
+.estatus-pendiente { color: #ffc107; }
+
+.error-message {
+    background-color: #ffebee; /* Un rojo claro */
+    color: #c62828; /* Un rojo oscuro */
+    border: 1px solid #c62828;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #e8f5e9; /* Un verde claro */
+    color: #2e7d32; /* Un verde oscuro */
+    border: 1px solid #2e7d32;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}

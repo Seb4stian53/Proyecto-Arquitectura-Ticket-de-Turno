@@ -1,11 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <!-- ==========================================
+         CONFIGURACIÓN GENERAL
+    =========================================== -->
+    <display-name>Sistema de Turnos</display-name>
+
+    <!-- Página por defecto -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ==========================================
+         SERVLETS PRINCIPALES (usuarios)
+    =========================================== -->
+
+    <!-- ==========================================
+         ADMINISTRACIÓN
+    =========================================== -->
+
+    <!-- Actualizar Estatus Turno -->
+    <servlet>
+        <servlet-name>ActualizarEstatusServlet</servlet-name>
+        <servlet-class>controlador.ActualizarEstatusServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActualizarEstatusServlet</servlet-name>
+        <url-pattern>/admin/actualizar-turno</url-pattern>
+    </servlet-mapping>
+
+    <!-- Gestionar Municipios -->
+    <servlet>
+        <servlet-name>GestionarMunicipiosServlet</servlet-name>
+        <servlet-class>controlador.GestionarMunicipiosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GestionarMunicipiosServlet</servlet-name>
+        <url-pattern>/admin/gestionar-municipios</url-pattern>
+    </servlet-mapping>
+
+    <!-- Agregar Municipio -->
+    <servlet>
+        <servlet-name>AgregarMunicipioServlet</servlet-name>
+        <servlet-class>controlador.AgregarMunicipioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AgregarMunicipioServlet</servlet-name>
+        <url-pattern>/admin/agregar-municipio</url-pattern>
+    </servlet-mapping>
+
+    <!-- ==========================================
+         FILTROS Y CONFIG EXTRA
+    =========================================== -->
+
+    <!-- Codificación UTF-8 global -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>filtros.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Sesión para proteger el admin -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filtros.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

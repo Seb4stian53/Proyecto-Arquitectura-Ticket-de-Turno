@@ -1,0 +1,104 @@
+# 🎟️ Proyecto: Sistema de Ticket de Turno
+
+## 📄 Descripción del Proyecto
+
+Este proyecto es una aplicación web desarrollada como parte del Parcial 2 de la materia de **Diseño y Arquitectura de Software**. La aplicación, denominada "Ticket de Turno", fue creada para solucionar la necesidad de agendar citas de forma organizada para trámites educativos, un requerimiento surgido en el contexto post-pandemia.
+
+El sistema permite a los padres de familia registrar, consultar y modificar sus turnos, mientras que provee un panel de administración completo para que el personal educativo gestione las solicitudes, vea estadísticas y administre catálogos del sistema.
+
+---
+
+## ✨ Características Principales
+
+### Portal Público
+*   ✔️ **Generación de Turnos:** Formulario intuitivo para que los padres registren una cita para un trámite.
+*   ✔️ **Consulta y Modificación:** Los usuarios pueden buscar su turno usando su CURP y número de turno para editar la información.
+*   ✔️ **Comprobante de Registro:** Al generar un turno, el sistema muestra un comprobante con los datos clave.
+*   ✔️ **Cancelación de Turnos:** Funcionalidad adicional que permite a los usuarios cancelar sus propias citas.
+
+### Panel de Administración
+*   ✔️ **Acceso Seguro:** Módulo de autenticación con usuario y contraseña para el personal administrativo.
+*   ✔️ **Gestión Centralizada de Turnos:** Visualización de todos los turnos en una tabla con opciones de búsqueda, modificación y eliminación.
+*   ✔️ **Cambio de Estatus:** Los administradores pueden marcar los turnos como "Pendiente", "Resuelto" o "Cancelado".
+*   ✔️ **Dashboard de Estadísticas:** Un panel principal con una gráfica que muestra el estado de los turnos, filtrable por municipio.
+*   ✔️ **Gestión de Catálogos:** Un módulo CRUD (Crear, Leer, Actualizar, Eliminar) para administrar los municipios del sistema.
+
+---
+
+## 🔧 Tecnologías Utilizadas
+
+| Categoría | Tecnología |
+| :--- | :--- |
+| **Backend** | Java 11+, Jakarta Servlets, JSP, JSTL |
+| **Frontend** | HTML5, CSS3 |
+| **Base de Datos** | MySQL |
+| **Servidor de Aplicaciones**| Apache Tomcat 10.1+ |
+| **Gestor de Dependencias** | Apache Maven |
+| **Control de Versiones** | Git & GitHub |
+
+---
+
+## 🏛️ Arquitectura del Software
+
+El proyecto fue desarrollado siguiendo estrictamente el patrón de diseño **MVC (Modelo-Vista-Controlador)** para garantizar una clara separación de responsabilidades.
+
+*   **Modelo:** Compuesto por:
+    *   **Entidades (POJOs):** Clases (`Turno`, `Admin`, `Municipio`) que representan los datos.
+    *   **DAO (Data Access Object):** Clases que encapsulan toda la lógica de acceso a la base de datos (JDBC y SQL).
+    *   **Service:** Clases que contienen la lógica de negocio compleja y transaccional.
+
+*   **Vista:** Implementada con **JavaServer Pages (JSP)** y la librería **JSTL**. Se encarga de la presentación de los datos al usuario. El frontend utiliza HTML5 y CSS3 para la estructura y el estilo.
+
+*   **Controlador:** Implementado con **Jakarta Servlets**. Actúan como el punto de entrada de las peticiones HTTP, orquestando las llamadas al Modelo y decidiendo qué Vista mostrar.
+
+---
+
+## 💡 Patrones de Diseño Implementados
+
+Para cumplir con los requisitos y asegurar un código robusto y mantenible, se implementaron dos patrones de diseño clave:
+
+1.  **Singleton:** Utilizado en la clase `DatabaseConnection.java` para asegurar que exista un único punto de acceso global para la creación de conexiones a la base de datos. Esto centraliza la configuración y la gestión de la conexión.
+
+2.  **DAO (Data Access Object):** Utilizado para toda la capa de persistencia. Se creó un DAO para cada entidad (`TurnoDAO`, `AdminDAO`, `MunicipioDAO`), separando completamente la lógica de la base de datos de la lógica de negocio.
+
+---
+
+## 🚀 Cómo Ejecutar el Proyecto
+
+Siga estos pasos para configurar y ejecutar el proyecto en un entorno local.
+
+### **Prerrequisitos**
+*   Java JDK 11 o superior.
+*   Apache NetBeans IDE.
+*   XAMPP con el servicio de MySQL activado.
+*   Apache Tomcat 10.1 o superior, configurado en NetBeans.
+*   Git.
+
+### **Instalación**
+
+1.  **Clonar el Repositorio:**
+    ```bash
+    git clone `github.com/Seb4stian53/Proyecto-Arquitectura-Ticket-de-Turno`
+    ```
+
+2.  **Configurar la Base de Datos:**
+    *   Inicie el servicio de MySQL desde el panel de control de XAMPP.
+    *   Abra phpMyAdmin en su navegador (`http://localhost/phpmyadmin`).
+    *   Vaya a la pestaña **Importar**.
+    *   Seleccione el archivo `database_setup.sql` que se encuentra en la raíz del proyecto.
+    *   Ejecute la importación. Esto creará la base de datos `sistema_turnos_db` con las tablas y datos necesarios.
+
+3.  **Abrir en NetBeans:**
+    *   En NetBeans, vaya a `File > Open Project...`.
+    *   Navegue hasta la carpeta donde clonó el repositorio y ábrala. NetBeans detectará el `pom.xml` y cargará el proyecto.
+
+4.  **Ejecutar:**
+    *   Haga clic derecho en el proyecto y seleccione **`Clean and Build`**.
+    *   Una vez construido, presione **`F6`** o el botón "Run Project". La aplicación se desplegará en Tomcat y se abrirá en su navegador.
+
+---
+
+## 👥 Equipo de Desarrollo
+
+*   **Sebastián Contreras** - *Arquitecto Backend & Base de Datos*
+*   **Fabrizio Cárdenas** - *Desarrollador Frontend & UI/UX*
