@@ -22,11 +22,11 @@ public class Turno {
     private String estatus;
     private int numero_turno_municipio;
     private LocalDateTime fecha_creacion;
-    private int id_municipio_fk;
+    private Municipio municipio;
     
     public Turno(){}
 
-    public Turno(int id_turno, String curp_alumno, String nombre_alumno, String paterno_alumno, String materno_alumno, String nombre_solicitante, String telefono, String correo, String nivel_educativo, String asunto, String estatus, int numero_turno_municipio, LocalDateTime fecha_creacion, int id_municipio_fk) {
+    public Turno(int id_turno, String curp_alumno, String nombre_alumno, String paterno_alumno, String materno_alumno, String nombre_solicitante, String telefono, String correo, String nivel_educativo, String asunto, String estatus, int numero_turno_municipio, LocalDateTime fecha_creacion, Municipio municipio) {
         this.id_turno = id_turno;
         this.curp_alumno = curp_alumno;
         this.nombre_alumno = nombre_alumno;
@@ -40,7 +40,7 @@ public class Turno {
         this.estatus = estatus;
         this.numero_turno_municipio = numero_turno_municipio;
         this.fecha_creacion = fecha_creacion;
-        this.id_municipio_fk = id_municipio_fk;
+        this.municipio = municipio;
     }
 
     public int getId_turno() {
@@ -147,12 +147,12 @@ public class Turno {
         this.fecha_creacion = fecha_creacion;
     }
 
-    public int getId_municipio_fk() {
-        return id_municipio_fk;
+    public Municipio getMunicipio() {
+        return municipio;
     }
 
-    public void setId_municipio_fk(int id_municipio_fk) {
-        this.id_municipio_fk = id_municipio_fk;
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
     
     

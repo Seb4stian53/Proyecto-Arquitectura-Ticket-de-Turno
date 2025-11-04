@@ -139,3 +139,13 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+
+.error-message {
+    background-color: #ffebee; /* Un rojo claro */
+    color: #c62828; /* Un rojo oscuro */
+    border: 1px solid #c62828;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}

@@ -1,3 +1,4 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,6 +13,12 @@
 </header>
 
 <main>
+    <c:if test="${not empty error}">
+        <div class="error-message">
+            <p>${error}</p>
+        </div>
+    </c:if>
+    
     <form method="POST" action="consultar-turno">
         <label for="curp_alumno">CURP del Alumno:</label>
         <input type="text" id="curp_alumno" name="curp_alumno" maxlength="18" required>
