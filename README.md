@@ -78,7 +78,7 @@ Siga estos pasos para configurar y ejecutar el proyecto en un entorno local.
 
 1.  **Clonar el Repositorio:**
     ```bash
-    git clone [URL de tu repositorio de GitHub]
+    git clone `github.com/Seb4stian53/Proyecto-Arquitectura-Ticket-de-Turno`
     ```
 
 2.  **Configurar la Base de Datos:**
