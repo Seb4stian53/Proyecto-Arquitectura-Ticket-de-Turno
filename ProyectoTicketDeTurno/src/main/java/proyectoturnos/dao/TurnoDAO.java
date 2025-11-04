@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import proyectoturnos.model.Turno;
 import proyectoturnos.model.Municipio;
+import proyectoturnos.model.Turno;
 import proyectoturnos.util.DatabaseConnection;
 
 /**
@@ -68,7 +68,7 @@ public class TurnoDAO {
     //Obtener todos los turnos
     public List<Turno> obtenerTodos() {
         List<Turno> turnos = new ArrayList<>();
-        String sql = "SELECT t.*, m.nombre AS nombre_municipio FROM turnos t LEFT JOIN municipios m ON t.id_munnicipio_fk = m.id_municipio ORDER BY fecha_creacion DESC";
+        String sql = "SELECT t.*, m.nombre AS nombre_municipio FROM turnos t LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio ORDER BY fecha_creacion DESC";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -102,6 +102,7 @@ public class TurnoDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener turnos: " + e.getMessage());
+            e.printStackTrace();
         }
         return turnos;
     }
@@ -195,6 +196,49 @@ public class TurnoDAO {
             System.err.println("Error al cancelar el turno: " + e.getMessage());
             return false;
         }
+    }
+
+   public int contarTotal() {
+    int total = 0; // Valor por defecto en caso de error
+    String sql = "SELECT COUNT(*) FROM turnos";
+    
+    try (Connection conn = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        if (rs.next()) {
+            total = rs.getInt(1); 
+        }
+        
+    } catch (SQLException e) {
+        System.err.println("Error al contar turnos totales: " + e.getMessage());
+    }
+    
+    return total;
+    }
+
+    public int contarPorEstado(String estatus) {
+    int total = 0;
+    // Usamos un placeholder (?) para hacer la consulta segura
+    String sql = "SELECT COUNT(*) FROM turnos WHERE estatus = ?"; 
+    
+    try (Connection conn = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        // Asignamos el valor del estado al placeholder
+        ps.setString(1, estatus); 
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        }
+        
+    } catch (SQLException e) {
+        System.err.println("Error al contar turnos por estado '" + estatus + "': " + e.getMessage());
+    }
+    
+    return total;
     }
     
     public Turno buscarPorId(int idTurno) {

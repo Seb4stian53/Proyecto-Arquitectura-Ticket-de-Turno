@@ -4,6 +4,7 @@
  */
 package proyectoturnos.model;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author seb4s
@@ -153,6 +154,22 @@ public class Turno {
 
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
+    }
+
+    public String getFechaFormateada() {
+        if (fecha_creacion == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return fecha_creacion.format(formatter);
+    }
+
+    public String getHoraFormateada() {
+        if (fecha_creacion == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return fecha_creacion.format(formatter);
     }
     
     

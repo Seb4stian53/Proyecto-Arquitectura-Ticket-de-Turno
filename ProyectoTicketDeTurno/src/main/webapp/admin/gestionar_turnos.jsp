@@ -1,29 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Gestionar Turnos</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <header>
     <h1>Gestión de Turnos</h1>
-    <nav>
-        <a href="dashboard.jsp">Dashboard</a> |
-        <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
-        <a href="gestionar_municipios.jsp">Municipios</a> |
-          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
-        <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
-    </nav>
+   <nav>
+        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
+   </nav>
 </header>
 
 <main>
     <h2>Listado de Turnos</h2>
 
-    <form action="<%= request.getContextPath() %>/TurnoServlet" method="get">
-        <input type="text" name="busqueda" placeholder="Buscar por nombre, CURP o municipio...">
+    <form action="${pageContext.request.contextPath}/panel/turnos" method="get">
+        <input type="text" name="busqueda" placeholder="Buscar por nombre, CURP o municipio..." value="${param.busqueda}">
         <button type="submit">Buscar</button>
     </form>
 
@@ -43,23 +43,18 @@
         <tbody>
             <c:forEach var="turno" items="${listaTurnos}">
                 <tr>
-                    <td>${turno.id_turno}</td>
-                    <td>${turno.curp_estudiante}</td>
-                    <td>${turno.nombre_estudiante}</td>
-                    <%-- **AQUÍ:** Asumimos que ${turno.municipio} ya contiene el NOMBRE del municipio --%>
-                    <td>${turno.municipio}</td>
-                    <td>${turno.fecha}</td>
-                    <td>${turno.hora}</td>
-                    <td>${turno.estatus}</td>
+                    <td>${turno.numero_turno_municipio}</td>
+                    <td>${turno.curp_alumno}</td>
+                    <td>${turno.nombre_alumno} ${turno.paterno_alumno}</td>
+                    <td>${turno.municipio.nombre}</td>
+                    <td>${turno.fechaFormateada}</td>
+                    <td>${turno.horaFormateada}</td>
+                    <td><span class="estatus estatus-${turno.estatus}">${turno.estatus}</span></td>
                     <td>
-                        <form action="<%= request.getContextPath() %>/TurnoServlet" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="${turno.id_turno}">
-                            <button type="submit" name="accion" value="editar">Editar</button>
-                            <button type="submit" name="accion" value="eliminar" 
-                                    onclick="return confirm('¿Seguro que deseas eliminar el turno de ${turno.nombre_estudiante}?');">
-                                Eliminar
-                            </button>
-                        </form>
+                        <%-- CAMBIO CLAVE: Un solo enlace para ver el detalle --%>
+                        <a href="${pageContext.request.contextPath}/panel/turno/ver?id=${turno.id_turno}" class="btn">
+                            Ver / Gestionar
+                        </a>
                     </td>
                 </tr>
             </c:forEach>

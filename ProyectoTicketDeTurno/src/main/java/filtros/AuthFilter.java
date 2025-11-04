@@ -1,13 +1,20 @@
 package filtros;
 
-import jakarta.servlet.*;
+import java.io.IOException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 
-@WebFilter("/admin/*")
+
+@WebFilter("/panel/*")
 public class AuthFilter implements Filter {
 
     @Override
@@ -24,12 +31,13 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         // Verifica si el admin está autenticado
-        boolean loggedIn = (session != null && session.getAttribute("administrador") != null);
+        boolean loggedIn = (session != null && session.getAttribute("adminUsuario") != null);
         String loginURI = request.getContextPath() + "/login.jsp";
 
         boolean loginRequest = request.getRequestURI().equals(loginURI);
+        boolean isCssRequest = request.getRequestURI().endsWith(".css");
 
-        if (loggedIn || loginRequest) {
+         if (loggedIn || loginRequest || isCssRequest) { 
             // Permitir acceso
             chain.doFilter(request, response);
         } else {

@@ -1,14 +1,15 @@
-package proyectoturnos.controllers;
+package proyectoturnos.controllers.Admin;
 
-import proyectoturnos.dao.AdminDAO;
-import proyectoturnos.model.Admin;
+import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
+import proyectoturnos.dao.AdminDAO;
+import proyectoturnos.model.Admin;
 
 @WebServlet("/login")
 public class AdminLoginServlet extends HttpServlet {
@@ -32,10 +33,10 @@ public class AdminLoginServlet extends HttpServlet {
         
         if (admin != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("administrador", admin);
-            response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
+            session.setAttribute("adminUsuario", admin.getUsuario()); // Guardamos el nombre de usuario
+            response.sendRedirect(request.getContextPath() + "/panel/dashboard");
         } else {
-            request.setAttribute("error", "Usiaro o contraseña incorrectos");
+            request.setAttribute("error", "Usuario o contraseña incorrectos");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }

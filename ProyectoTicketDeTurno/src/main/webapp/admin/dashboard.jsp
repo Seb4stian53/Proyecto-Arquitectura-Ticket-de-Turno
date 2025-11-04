@@ -5,18 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel de Administración</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <header>
     <h1>Panel de Administración</h1>
     <nav>
-        <a href="dashboard.jsp">Dashboard</a> |
-        <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
-        <a href="gestionar_municipios.jsp">Municipios</a> |
-          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
-        <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
 

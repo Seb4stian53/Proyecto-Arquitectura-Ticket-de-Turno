@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoturnos.controllers;
+package proyectoturnos.controllers.Turno;
 import proyectoturnos.dao.MunicipioDAO;
 import proyectoturnos.model.Municipio;
 import jakarta.servlet.ServletException;

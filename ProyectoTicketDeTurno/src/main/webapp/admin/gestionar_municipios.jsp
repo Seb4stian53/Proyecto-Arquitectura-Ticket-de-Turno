@@ -1,60 +1,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Gestionar Municipios</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <header>
     <h1>Gestión de Municipios</h1>
     <nav>
-        <a href="dashboard.jsp">Dashboard</a> |
-        <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
-        <a href="gestionar_municipios.jsp">Municipios</a> |
-          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
-        <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
 
 <main>
-    <h2>Listado de Municipios</h2>
+    <h2>Agregar Nuevo Municipio</h2>
+    
+    <%-- Mensajes de feedback para el usuario --%>
+    <c:if test="${param.mensaje == 'exito_crear'}"><p class="mensaje exito">Municipio agregado correctamente.</p></c:if>
+    <c:if test="${param.mensaje == 'exito_editar'}"><p class="mensaje exito">Municipio actualizado correctamente.</p></c:if>
+    <c:if test="${param.mensaje == 'exito_eliminar'}"><p class="mensaje info">Municipio eliminado correctamente.</p></c:if>
+    <c:if test="${param.mensaje == 'error'}"><p class="mensaje error">Ocurrió un error al procesar la solicitud.</p></c:if>
 
-    <form action="<%= request.getContextPath() %>/MunicipioServlet" method="post" class="formulario">
-        <input type="text" name="nombre" placeholder="Nombre del Municipio" required>
-        <button type="submit" name="accion" value="agregar">Agregar</button>
+    <form action="${pageContext.request.contextPath}/panel/municipios/create" method="post" class="admin-form">
+        <div class="form-group">
+            <label for="nombre">Nombre del Municipio:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. Saltillo" required>
+        </div>
+        <button type="submit" class="btn primary">Agregar Municipio</button>
     </form>
+    
+    <hr>
 
+    <h2>Municipios Existentes</h2>
     <table class="data-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre del Municipio</th>
+                <th style="width: 40%;">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="m" items="${listaMunicipios}">
                 <tr>
                     <td>${m.id_municipio}</td>
-                    <td>${m.nombre}</td>
-                    <td>
-                        <form action="<%= request.getContextPath() %>/MunicipioServlet" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="${m.id_municipio}">
-                            <input type="text" name="nuevoNombre" placeholder="Nuevo nombre">
-                            <button type="submit" name="accion" value="editar">Editar</button>
-                            <button type="submit" name="accion" value="eliminar"
-                                    onclick="return confirm('¿Eliminar municipio ${m.nombre}?');">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
+                    <form action="${pageContext.request.contextPath}/panel/municipios/update" method="post">
+                        <input type="hidden" name="id_municipio" value="${m.id_municipio}">
+                        <td>
+                            <input type="text" name="nombre" value="${m.nombre}" required class="input-in-table">
+                        </td>
+                        <td>
+                            <button type="submit" class="btn">Actualizar</button>
+                            <%-- El enlace de eliminar ahora apunta al servlet de borrado --%>
+                            <a href="${pageContext.request.contextPath}/panel/municipios/delete?id=${m.id_municipio}" 
+                               class="btn danger"
+                               onclick="return confirm('¿Estás seguro de que quieres eliminar el municipio ${m.nombre}?');">
+                               Eliminar
+                            </a>
+                        </td>
+                    </form>
                 </tr>
-             </c:forEach>
+            </c:forEach>
             <c:if test="${empty listaMunicipios}">
                 <tr>
-                    <td colspan="8">No se encontraron municipios</td>
+                    <td colspan="3">No se encontraron municipios.</td>
                 </tr>
             </c:if>
         </tbody>

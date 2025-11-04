@@ -5,25 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Administradores</title>
-    <link rel="stylesheet" href="../css/style.css"> <%-- Asegúrate que la ruta al CSS es correcta --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <header>
     <h1>Panel de Administración</h1>
     <nav>
-        <a href="dashboard.jsp">Dashboard</a> |
-        <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
-        <a href="gestionar_municipios.jsp">Municipios</a> |
-          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
-        <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
 
 <main>
     <h2>Agregar Nuevo Administrador</h2>
 
-    <%-- Formulario para crear un nuevo admin --%>
-    <form action="adminController?action=crear" method="post" class="admin-form">
+    <form action="${pageContext.request.contextPath}/panel/admins/create" method="post" class="admin-form">
         <div class="form-group">
             <label for="username">Nombre de Usuario:</label>
             <input type="text" id="username" name="username" required>
@@ -35,16 +34,22 @@
         <button type="submit" class="btn primary">Agregar Administrador</button>
     </form>
 
-    <%-- Muestra un mensaje de éxito o error si existe --%>
-    <c:if test="${not empty mensaje}">
-        <p class="mensaje ${tipoMensaje}">${mensaje}</p>
+    <%-- Sistema de Mensajes de Feedback --%>
+    <c:if test="${param.mensaje == 'exito'}">
+        <p class="mensaje exito">Administrador agregado correctamente.</p>
+    </c:if>
+    <c:if test="${param.mensaje == 'eliminado'}">
+        <p class="mensaje info">Administrador eliminado correctamente.</p>
+    </c:if>
+     <c:if test="${param.mensaje == 'error'}">
+        <p class="mensaje error">Ocurrió un error. El usuario podría ya existir.</p>
     </c:if>
 
     <hr>
 
     <h2>Administradores Existentes</h2>
-    
-    <%-- Tabla para listar los admins (esto es opcional pero muy útil) --%>
+
+
     <table class="data-table">
         <thead>
             <tr>
@@ -54,20 +59,23 @@
             </tr>
         </thead>
         <tbody>
-            <%-- Aquí listaremos los usuarios que traigamos de la base de datos --%>
-            <%-- Este es un ejemplo, necesitarás un Servlet que cargue esta lista --%>
+
             <c:forEach var="admin" items="${listaAdmins}">
                 <tr>
-                    <td>${admin.id}</td>
-                    <td>${admin.username}</td>
+                    <td>${admin.ID_Admin}</td>
+                    <td>${admin.usuario}</td>
                     <td>
-                        <a href="adminController?action=eliminar&id=${admin.id}" class="btn danger">Eliminar</a>
+                        <a href="${pageContext.request.contextPath}/panel/admins/delete?id=${admin.ID_Admin}" 
+                           class="btn danger" 
+                           onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">
+                           Eliminar
+                        </a>
                     </td>
                 </tr>
              </c:forEach>
             <c:if test="${empty listaAdmins}">
                 <tr>
-                    <td colspan="8">No se encontraron usuarios</td>
+                    <td colspan="3">No se encontraron administradores.</td>
                 </tr>
             </c:if>
         </tbody>

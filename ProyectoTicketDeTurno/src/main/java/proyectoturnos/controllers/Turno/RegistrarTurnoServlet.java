@@ -2,19 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoturnos.controllers;
-import proyectoturnos.model.Turno;
-import proyectoturnos.model.Municipio;
-import proyectoturnos.dao.TurnoDAO;
-import proyectoturnos.dao.MunicipioDAO;
-import proyectoturnos.service.TurnoService;
+package proyectoturnos.controllers.Turno;
+import java.io.IOException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import proyectoturnos.dao.MunicipioDAO;
+import proyectoturnos.dao.TurnoDAO;
+import proyectoturnos.model.Municipio;
+import proyectoturnos.model.Turno;
+import proyectoturnos.service.TurnoService;
 
 /**
  *
@@ -70,7 +71,7 @@ public class RegistrarTurnoServlet extends HttpServlet {
             request.getRequestDispatcher("comprobante.jsp").forward(request, response);
 
         } catch (Exception e) {
-            System.out.println("Errorsin en al registrar turno de paerte del servlet");
+            System.out.println("Error al registrar turno de parte del servlet");
             e.printStackTrace(); 
             
             request.setAttribute("error", e.getMessage());
