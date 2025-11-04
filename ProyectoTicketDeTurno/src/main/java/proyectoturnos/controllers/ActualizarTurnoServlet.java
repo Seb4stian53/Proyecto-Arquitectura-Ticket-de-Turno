@@ -23,7 +23,6 @@ public class ActualizarTurnoServlet extends HttpServlet {
             throws ServletException, IOException {
         
         int id = Integer.parseInt(request.getParameter("id_turno"));
-        String curp = request.getParameter("curp_alumno_display");
         String nombre_alumno = request.getParameter("nombre_alumno");
         String paterno_alumno = request.getParameter("paterno_alumno");
         String materno_alumno = request.getParameter("materno_alumno");

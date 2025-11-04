@@ -1,103 +1,104 @@
-📝 Fase 1: Planificación y Configuración
-Antes de escribir una sola línea de código, es crucial definir la base del proyecto.
-1.	Definición de Tareas (Requisito Pre-entrega):
-o	Reúnanse como equipo y asignen responsabilidades claras. Esto es obligatorio para el documento que deben entregar un día antes.
-o	Ejemplo de asignación:
-	Líder de Backend/Arquitectura: Define la estructura MVC, los modelos, y la conexión a la BD. Implementa la lógica de negocio (turnos, validaciones).
-	Líder de Base de Datos: Diseña el Modelo de Clases (Req. 4) y el Modelo de BD (Req. 5).
-	Líder de Frontend (Admin): Desarrolla el Login (Req. 1), el Panel de Admin (Req. 7), el Dashboard (Req. 10) y los CRUD de catálogos (Req. 2 y 8).
-	Líder de Frontend (Público): Desarrolla el formulario público de registro/modificación (Req. 6) y el comprobante.
-	Responsable de Git/QA: Configura el repositorio (Req. 4) y realiza pruebas de validación (Req. 11).
-2.	Elección de Stack Tecnológico:
-o	Lenguaje: Decidan si usarán Java (con JavaFX o Swing), Python (con Tkinter o PyQt) o C# (con WinForms o WPF).
-o	Base de Datos: Elijan su gestor. MySQL es una opción estándar, pero SQLite puede ser más sencillo para un proyecto de escritorio si no quieren gestionar un servidor.
-3.	Configuración de Git (Req. 4):
-o	Creen un repositorio en GitHub.
-o	Añadan a todos los miembros como colaboradores.
-o	Definan una estrategia de ramas (ej. main para la versión estable, develop para integración, y ramas feature/nombre-tarea para cada integrante).
-o	Importante: Cada miembro debe hacer commits y push de sus propias tareas para cumplir con el requisito de participación.
-4.	Definición de Patrones de Diseño (Req. 5):
-o	Deben usar 2 patrones. La arquitectura MVC (Req. 2) ya es un patrón arquitectónico. Adicionalmente, pueden usar:
-o	Singleton: Perfecto para gestionar la conexión a la base de datos, asegurando que solo exista una instancia de la conexión en toda la aplicación.
-o	Factory Method: Útil para crear los diferentes objetos (ej. Turno, Admin, Usuario) o para manejar la lógica de creación de los comprobantes.
-________________________________________
-🗃 Fase 2: Diseño de Modelos y Base de Datos (El "Model")
-Aquí se define la estructura de los datos, cumpliendo con los requisitos 1, 4 y 5.
-1.	Modelo de Base de Datos (Req. 5):
-o	Este es su diagrama Entidad-Relación. Necesitarán al menos las siguientes tablas:
-o	Municipios (Catálogo):
-	id_municipio (PK)
-	nombre
-o	Asuntos (Catálogo):
-	id_asunto (PK)
-	descripcion
-o	Alumnos:
-	CURP (PK, $\text{VARCHAR}(18)$)
-	nombre
-	paterno
-	materno
-	nivel
-	id_municipio (FK a Municipios)
-o	Turnos (o Citas):
-	id_turno (PK, Autoincremental)
-	CURP_alumno (FK a Alumnos)
-	nombre_padre
-	telefono
-	correo
-	id_asunto (FK a Asuntos)
-	numero_turno_municipio (INT) - Este es el número 1...n por municipio (Req. 9)
-	estatus (ENUM: 'Pendiente', 'Resuelto') - (Req. 7 y 10)
-o	Administradores:
-	id_admin (PK)
-	usuario (UNIQUE)
-	password (Recomendable guardar un hash, no texto plano)
-2.	Modelo de Clases (Req. 4):
-o	Este es su diagrama de clases (UML). Básicamente, es la representación Orientada a Objetos (Req. 1) de sus tablas.
-o	class Municipio { int id; String nombre; }
-o	class Asunto { int id; String descripcion; }
-o	class Alumno { String CURP; String nombre; ... }
-o	class Turno { int id; Alumno alumno; ... }
-o	class Admin { int id; String usuario; ... }
-________________________________________
-⚙ Fase 3: Lógica de Negocio (El "Controller")
-Este es el cerebro de la aplicación (Req. 2 y 6). Aquí se conectan los Modelos (datos) con las Vistas (pantallas).
-1.	Controlador de Turnos (Lógica Central):
-o	Validación CURP (Req. 11): Creen una función que use una expresión regular (Regex) para validar el formato.
-	Ejemplo de Regex (básico): ^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[A-Z0-9]{2}$
-	Si la validación falla, la función debe devolver false y no permitir el registro en la BD.
-o	Lógica de Turno por Municipio (Req. 9):
-	Esta es la parte más compleja. Cuando se registra un nuevo turno, la lógica debe ser:
-1.	Obtener el id_municipio del alumno (basado en su CURP).
-2.	Buscar el último número de turno para ese municipio:
-SELECT MAX(numero_turno_municipio) FROM Turnos T JOIN Alumnos A ON T.CURP_alumno = A.CURP WHERE A.id_municipio = ?
-3.	El nuevo número de turno será MAX + 1. Si no hay turnos, será 1.
-4.	(Avanzado: Es recomendable hacer esto dentro de una transacción de la BD para evitar que dos personas obtengan el mismo número al mismo tiempo).
-2.	Controlador de Administración:
-o	login(usuario, pass) (Req. 1)
-o	consultar(CURP_o_Nombre) (Req. 7)
-o	actualizarEstatus(id_turno, 'Resuelto') (Req. 7)
-o	eliminarTurno(id_turno) (Req. 7)
-o	obtenerDatosDashboard(id_municipio): Una función que cuenta los turnos 'Pendiente' vs 'Resuelto' para el gráfico (Req. 10).
-3.	Controlador de Catálogos (Req. 2 y 8):
-o	Funciones CRUD (Crear, Leer, Actualizar, Borrar) para Municipios y Asuntos.
-________________________________________
-🖥 Fase 4: Interfaces de Usuario (Las "Views")
-Son las ventanas con las que interactúa el usuario. Deben estar separadas de la lógica (cumpliendo con MVC).
-1.	Formulario Público (Req. 6):
-o	Una ventana con todos los campos (CURP, nombre alumno, nombre padre, etc.).
-o	Botón "Registrar": Llama al controlador. Si la validación CURP (Req. 11) falla, muestra un aviso. Si tiene éxito, registra y genera el comprobante (puede ser una nueva ventana o un PDF simple) con los datos básicos y el numero_turno_municipio asignado.
-o	Botón "Modificar": Pide el CURP y el Número de Turno. Si coinciden, carga los datos en el formulario para editarlos.
-2.	Vista de Administrador:
-o	Login (Req. 1): Ventana simple con usuario, contraseña y botón de acceso.
-o	Menú Principal (Req. 3): Una vez logueado, debe mostrar el menú para navegar a "Consultas", "Dashboard", "Catálogos".
-o	Opción Salir/Cerrar (Req. 3): Un botón que cierre la sesión, destruya las variables (ej. el objeto del admin logueado) y cierre la conexión a la BD.
-o	Panel de Consulta (Req. 7):
-	Barra de búsqueda (por CURP o nombre).
-	Tabla de resultados.
-	Botones para Modificar, Eliminar, y cambiar estatus a "Resuelto" / "Pendiente".
-o	CRUD Catálogos (Req. 2 y 8):
-	Ventanas separadas para administrar Municipios y Asuntos (con tablas y botones de Nuevo, Editar, Borrar).
-o	Dashboard (Req. 10):
-	Un filtro (dropdown/lista) para seleccionar "Todos" o un municipio específico.
-	Un componente de gráfica (ej. gráfico de pastel o de barras) que muestre los conteos de "Resueltos" vs. "Pendientes" según el filtro.
-Este desglose cubre todos los puntos de la evaluación. Te recomiendo empezar por la Fase 1 (Planificación) y la Fase 2 (Base de Datos) lo antes posible.
+# 🎟️ Proyecto: Sistema de Ticket de Turno
+
+## 📄 Descripción del Proyecto
+
+Este proyecto es una aplicación web desarrollada como parte del Parcial 2 de la materia de **Diseño y Arquitectura de Software**. La aplicación, denominada "Ticket de Turno", fue creada para solucionar la necesidad de agendar citas de forma organizada para trámites educativos, un requerimiento surgido en el contexto post-pandemia.
+
+El sistema permite a los padres de familia registrar, consultar y modificar sus turnos, mientras que provee un panel de administración completo para que el personal educativo gestione las solicitudes, vea estadísticas y administre catálogos del sistema.
+
+---
+
+## ✨ Características Principales
+
+### Portal Público
+*   ✔️ **Generación de Turnos:** Formulario intuitivo para que los padres registren una cita para un trámite.
+*   ✔️ **Consulta y Modificación:** Los usuarios pueden buscar su turno usando su CURP y número de turno para editar la información.
+*   ✔️ **Comprobante de Registro:** Al generar un turno, el sistema muestra un comprobante con los datos clave.
+*   ✔️ **Cancelación de Turnos:** Funcionalidad adicional que permite a los usuarios cancelar sus propias citas.
+
+### Panel de Administración
+*   ✔️ **Acceso Seguro:** Módulo de autenticación con usuario y contraseña para el personal administrativo.
+*   ✔️ **Gestión Centralizada de Turnos:** Visualización de todos los turnos en una tabla con opciones de búsqueda, modificación y eliminación.
+*   ✔️ **Cambio de Estatus:** Los administradores pueden marcar los turnos como "Pendiente", "Resuelto" o "Cancelado".
+*   ✔️ **Dashboard de Estadísticas:** Un panel principal con una gráfica que muestra el estado de los turnos, filtrable por municipio.
+*   ✔️ **Gestión de Catálogos:** Un módulo CRUD (Crear, Leer, Actualizar, Eliminar) para administrar los municipios del sistema.
+
+---
+
+## 🔧 Tecnologías Utilizadas
+
+| Categoría | Tecnología |
+| :--- | :--- |
+| **Backend** | Java 11+, Jakarta Servlets, JSP, JSTL |
+| **Frontend** | HTML5, CSS3 |
+| **Base de Datos** | MySQL |
+| **Servidor de Aplicaciones**| Apache Tomcat 10.1+ |
+| **Gestor de Dependencias** | Apache Maven |
+| **Control de Versiones** | Git & GitHub |
+
+---
+
+## 🏛️ Arquitectura del Software
+
+El proyecto fue desarrollado siguiendo estrictamente el patrón de diseño **MVC (Modelo-Vista-Controlador)** para garantizar una clara separación de responsabilidades.
+
+*   **Modelo:** Compuesto por:
+    *   **Entidades (POJOs):** Clases (`Turno`, `Admin`, `Municipio`) que representan los datos.
+    *   **DAO (Data Access Object):** Clases que encapsulan toda la lógica de acceso a la base de datos (JDBC y SQL).
+    *   **Service:** Clases que contienen la lógica de negocio compleja y transaccional.
+
+*   **Vista:** Implementada con **JavaServer Pages (JSP)** y la librería **JSTL**. Se encarga de la presentación de los datos al usuario. El frontend utiliza HTML5 y CSS3 para la estructura y el estilo.
+
+*   **Controlador:** Implementado con **Jakarta Servlets**. Actúan como el punto de entrada de las peticiones HTTP, orquestando las llamadas al Modelo y decidiendo qué Vista mostrar.
+
+---
+
+## 💡 Patrones de Diseño Implementados
+
+Para cumplir con los requisitos y asegurar un código robusto y mantenible, se implementaron dos patrones de diseño clave:
+
+1.  **Singleton:** Utilizado en la clase `DatabaseConnection.java` para asegurar que exista un único punto de acceso global para la creación de conexiones a la base de datos. Esto centraliza la configuración y la gestión de la conexión.
+
+2.  **DAO (Data Access Object):** Utilizado para toda la capa de persistencia. Se creó un DAO para cada entidad (`TurnoDAO`, `AdminDAO`, `MunicipioDAO`), separando completamente la lógica de la base de datos de la lógica de negocio.
+
+---
+
+## 🚀 Cómo Ejecutar el Proyecto
+
+Siga estos pasos para configurar y ejecutar el proyecto en un entorno local.
+
+### **Prerrequisitos**
+*   Java JDK 11 o superior.
+*   Apache NetBeans IDE.
+*   XAMPP con el servicio de MySQL activado.
+*   Apache Tomcat 10.1 o superior, configurado en NetBeans.
+*   Git.
+
+### **Instalación**
+
+1.  **Clonar el Repositorio:**
+    ```bash
+    git clone [URL de tu repositorio de GitHub]
+    ```
+
+2.  **Configurar la Base de Datos:**
+    *   Inicie el servicio de MySQL desde el panel de control de XAMPP.
+    *   Abra phpMyAdmin en su navegador (`http://localhost/phpmyadmin`).
+    *   Vaya a la pestaña **Importar**.
+    *   Seleccione el archivo `database_setup.sql` que se encuentra en la raíz del proyecto.
+    *   Ejecute la importación. Esto creará la base de datos `sistema_turnos_db` con las tablas y datos necesarios.
+
+3.  **Abrir en NetBeans:**
+    *   En NetBeans, vaya a `File > Open Project...`.
+    *   Navegue hasta la carpeta donde clonó el repositorio y ábrala. NetBeans detectará el `pom.xml` y cargará el proyecto.
+
+4.  **Ejecutar:**
+    *   Haga clic derecho en el proyecto y seleccione **`Clean and Build`**.
+    *   Una vez construido, presione **`F6`** o el botón "Run Project". La aplicación se desplegará en Tomcat y se abrirá en su navegador.
+
+---
+
+## 👥 Equipo de Desarrollo
+
+*   **Sebastián Contreras** - *Arquitecto Backend & Base de Datos*
+*   **Fabrizio Cárdenas** - *Desarrollador Frontend & UI/UX*
