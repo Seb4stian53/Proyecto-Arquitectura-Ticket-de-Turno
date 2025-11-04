@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import proyectoturnos.model.Turno;
+import proyectoturnos.model.Municipio;
 import proyectoturnos.util.DatabaseConnection;
 
 /**
@@ -37,7 +38,7 @@ public class TurnoDAO {
             ps.setString(8, turno.getNivel_educativo());
             ps.setString(9, turno.getAsunto());
             ps.setInt(10, turno.getNumero_turno_municipio());
-            ps.setInt(11, turno.getId_municipio_fk());
+            ps.setInt(11, turno.getMunicipio().getId_municipio());
             ps.executeUpdate();
             
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -67,7 +68,7 @@ public class TurnoDAO {
     //Obtener todos los turnos
     public List<Turno> obtenerTodos() {
         List<Turno> turnos = new ArrayList<>();
-        String sql = "SELECT * FROM turnos ORDER BY fecha_creacion DESC";
+        String sql = "SELECT t.*, m.nombre AS nombre_municipio FROM turnos t LEFT JOIN municipios m ON t.id_munnicipio_fk = m.id_municipio ORDER BY fecha_creacion DESC";
         
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -87,7 +88,10 @@ public class TurnoDAO {
                 turno.setAsunto(rs.getString("asunto"));
                 turno.setEstatus(rs.getString("estatus"));
                 turno.setNumero_turno_municipio(rs.getInt("numero_turno_municipio"));
-                turno.setId_municipio_fk(rs.getInt("id_municipio_fk"));
+                Municipio municipio = new Municipio();
+                municipio.setId_municipio(rs.getInt("id_municipio_fk"));
+                municipio.setNombre(rs.getString("nombre_municipio"));
+                turno.setMunicipio(municipio);
                 
                 Timestamp timestamp = rs.getTimestamp("fecha_creacion");
                 if (timestamp != null) {
@@ -119,7 +123,7 @@ public class TurnoDAO {
     //Buscar un turno por CURP y id_turno
     public Turno buscarPorCurpYTurno(String curp, int numero_turno) {
         Turno turno = null;
-        String sql = "SELECT * FROM turnos WHERE curp_alumno = ? AND numero_turno_municipio = ?";
+        String sql = "SELECT t.*, m.nombre AS nombre_municipio FROM turnos t LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio WHERE curp_alumno = ? AND numero_turno_municipio = ?";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, curp);
@@ -139,6 +143,10 @@ public class TurnoDAO {
                     turno.setAsunto(rs.getString("asunto"));
                     turno.setEstatus(rs.getString("estatus"));
                     turno.setNumero_turno_municipio(rs.getInt("numero_turno_municipio"));
+                    Municipio municipio = new Municipio();
+                    municipio.setId_municipio(rs.getInt("id_municipio_fk"));
+                    municipio.setNombre(rs.getString("nombre_municipio"));
+                    turno.setMunicipio(municipio);
                     
                     Timestamp timestamp = rs.getTimestamp("fecha_creacion");
                     if (timestamp != null) {

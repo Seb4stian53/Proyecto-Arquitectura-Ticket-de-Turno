@@ -36,7 +36,7 @@ public class TurnoService {
             
             //Usamos los DAOs
             //Obtenemos el numerio del ultimo turno del municipio
-            int ultimoTurno = turnoDAO.obtenerUltimoTurnoPorMunicipio(turno.getId_municipio_fk(), conn);
+            int ultimoTurno = turnoDAO.obtenerUltimoTurnoPorMunicipio(turno.getMunicipio().getId_municipio(), conn);
             int numeroNuevoTurno = ultimoTurno + 1;
             turno.setNumero_turno_municipio(numeroNuevoTurno);
             
@@ -50,7 +50,7 @@ public class TurnoService {
                 try {
                     //Revertimos la transaccion
                     conn.rollback();
-                    System.out.println("Transaccion revertida debido a un error");
+                    System.err.println("Transaccion revertida debido a un error: " + e.getMessage());
                 } catch (SQLException ex) {
                     System.err.println("Error al hacer rollback: " + ex.getMessage());
                 }

@@ -19,29 +19,6 @@
          SERVLETS PRINCIPALES (usuarios)
     =========================================== -->
 
-    <!-- Login -->
-    
-
-    <!-- Registro de Turno -->
-    <servlet>
-        <servlet-name>RegistrarTurnoServlet</servlet-name>
-        <servlet-class>controlador.RegistrarTurnoServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegistrarTurnoServlet</servlet-name>
-        <url-pattern>/registrar-turno</url-pattern>
-    </servlet-mapping>
-
-    <!-- Consultar Turno -->
-    <servlet>
-        <servlet-name>ConsultarTurnoServlet</servlet-name>
-        <servlet-class>controlador.ConsultarTurnoServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConsultarTurnoServlet</servlet-name>
-        <url-pattern>/consultar-turno</url-pattern>
-    </servlet-mapping>
-
     <!-- Actualizar Turno -->
     <servlet>
         <servlet-name>ActualizarTurnoServlet</servlet-name>

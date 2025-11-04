@@ -15,14 +15,14 @@
     <h2>Bienvenido</h2>
     <p>Seleccione una opción para continuar:</p>
     <div class="button-group">
-        <a href="registrar_turno.jsp" class="btn">Generar Nuevo Turno</a>
+        <a href="preparar-registro" class="btn">Generar Nuevo Turno</a>
         <a href="consultar_turno.jsp" class="btn">Consultar / Modificar Turno</a>
         <a href="login.jsp" class="btn secondary">Acceso Administrador</a>
     </div>
 </main>
 
 <footer>
-    <p>© 2025 Sistema de Turnos Educativos - Desarrollado por el equipo de arquitectura</p>
+    <p>© 2025 Sistema de Turnos Educativos - Desarrollado por el equipo de arquitectura fabroysebadev aka mamushidev</p>
 </footer>
 </body>
 </html>
