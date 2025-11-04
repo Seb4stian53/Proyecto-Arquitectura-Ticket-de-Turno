@@ -14,7 +14,7 @@
         <a href="dashboard.jsp">Dashboard</a> |
         <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
         <a href="gestionar_municipios.jsp">Municipios</a> |
-        <a href="gestionar_admins.jsp">Gestionar Admins</a> |
+          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
         <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
@@ -27,10 +27,6 @@
         <div class="form-group">
             <label for="username">Nombre de Usuario:</label>
             <input type="text" id="username" name="username" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
             <label for="password">Contraseña:</label>
@@ -54,7 +50,6 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre de Usuario</th>
-                <th>Correo Electrónico</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -65,12 +60,16 @@
                 <tr>
                     <td>${admin.id}</td>
                     <td>${admin.username}</td>
-                    <td>${admin.email}</td>
                     <td>
                         <a href="adminController?action=eliminar&id=${admin.id}" class="btn danger">Eliminar</a>
                     </td>
                 </tr>
-            </c:forEach>
+             </c:forEach>
+            <c:if test="${empty listaAdmins}">
+                <tr>
+                    <td colspan="8">No se encontraron usuarios</td>
+                </tr>
+            </c:if>
         </tbody>
     </table>
 

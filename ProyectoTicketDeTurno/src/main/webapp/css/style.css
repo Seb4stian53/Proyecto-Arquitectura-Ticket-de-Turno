@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #004aad;
+    background-color: #611233;
     color: white;
     padding: 1em 0;
     text-align: center;
@@ -46,7 +46,7 @@ input, select, textarea {
 button {
     margin-top: 1.5em;
     padding: 0.8em;
-    background-color: #004aad;
+    background-color: #3a0b1e;
     color: white;
     border: none;
     border-radius: 5px;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-    background-color: #00337a;
+    background-color: #300717;
 }
 
 .centered {
@@ -65,7 +65,7 @@ button:hover {
 
 .btn {
     display: inline-block;
-    background-color: #004aad;
+    background-color: #3a0b1e;
     color: white;
     padding: 1em 1.5em;
     margin: 0.5em;
@@ -79,11 +79,11 @@ button:hover {
 }
 
 .btn:hover {
-    background-color: #00337a;
+    background-color: #300717;
 }
 
 .link {
-    color: #004aad;
+    color: #3a0b1e;
     text-decoration: none;
 }
 
@@ -114,7 +114,7 @@ button:hover {
 }
 
 .card h3 {
-    color: #004aad;
+    color: #3a0b1e;
 }
 
 .card p {
@@ -123,7 +123,7 @@ button:hover {
 }
 
 nav {
-    background-color: #00337a;
+    background-color: #300717;
     color: white;
     padding: 0.5em;
     text-align: center;
@@ -139,3 +139,78 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+
+/* Contenedor de la tabla para un posible desplazamiento en móviles */
+.table-container {
+    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+}
+
+.data-table {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    border-collapse: collapse; /* Une los bordes de las celdas */
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px; /* Bordes redondeados para la tabla */
+    overflow: hidden; /* Asegura que el contenido respete los bordes redondeados */
+}
+
+/* Estilos para el encabezado de la tabla (thead) */
+.data-table thead tr {
+    background-color: #009879; /* Un color de acento profesional */
+    color: #ffffff; /* Texto blanco */
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Estilos para las celdas del encabezado (th) y del cuerpo (td) */
+.data-table th,
+.data-table td {
+    padding: 12px 15px; /* Espaciado interno para que no se vea apretado */
+}
+
+/* Estilos para las filas del cuerpo de la tabla (tbody) */
+.data-table tbody tr {
+    border-bottom: 1px solid #dddddd; /* Línea divisoria entre filas */
+}
+
+/* "Zebra striping" - Colores alternos para las filas para mejorar la legibilidad */
+.data-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* La última fila no necesita una línea divisoria debajo */
+.data-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+/* Efecto hover: cambia el color de fondo de la fila cuando el cursor está encima */
+.data-table tbody tr:hover {
+    font-weight: bold;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Estilos para botones o enlaces dentro de la tabla */
+.data-table .btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.data-table .btn.danger {
+    background-color: #dc3545;
+}
+
+.data-table .btn.danger:hover {
+    background-color: #c82333;
+}
+
+.estatus-cancelado { color: #dc3545; }
+.estatus-resuelto { color: #009879; }
+.estatus-pendiente { color: #ffc107; }

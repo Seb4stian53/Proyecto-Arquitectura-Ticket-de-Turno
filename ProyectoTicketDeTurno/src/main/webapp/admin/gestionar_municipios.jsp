@@ -12,8 +12,9 @@
     <h1>Gestión de Municipios</h1>
     <nav>
         <a href="dashboard.jsp">Dashboard</a> |
-        <a href="gestionar_turnos.jsp">Turnos</a> |
+        <a href="gestionar_turnos.jsp">Gestionar Turnos</a> |
         <a href="gestionar_municipios.jsp">Municipios</a> |
+          <a href="gestionar_admins.jsp">Gestionar Admins</a> |
         <a href="<%= request.getContextPath() %>/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
@@ -26,7 +27,7 @@
         <button type="submit" name="accion" value="agregar">Agregar</button>
     </form>
 
-    <table border="1" class="tabla">
+    <table class="data-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -50,7 +51,12 @@
                         </form>
                     </td>
                 </tr>
-            </c:forEach>
+             </c:forEach>
+            <c:if test="${empty listaMunicipios}">
+                <tr>
+                    <td colspan="8">No se encontraron municipios</td>
+                </tr>
+            </c:if>
         </tbody>
     </table>
 </main>
