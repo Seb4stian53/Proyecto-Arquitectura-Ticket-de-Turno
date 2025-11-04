@@ -6,6 +6,7 @@ package proyectoturnos.controllers;
 import proyectoturnos.model.Turno;
 import proyectoturnos.model.Municipio;
 import proyectoturnos.dao.TurnoDAO;
+import proyectoturnos.dao.MunicipioDAO;
 import proyectoturnos.service.TurnoService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -72,6 +74,9 @@ public class RegistrarTurnoServlet extends HttpServlet {
             e.printStackTrace(); 
             
             request.setAttribute("error", e.getMessage());
+            MunicipioDAO municipioDAO = new MunicipioDAO();
+            List<Municipio> listaMunicipios = municipioDAO.obtenerTodos();
+            request.setAttribute("listaMunicipios", listaMunicipios);
             request.getRequestDispatcher("registrar_turno.jsp").forward(request, response);
         }
     }

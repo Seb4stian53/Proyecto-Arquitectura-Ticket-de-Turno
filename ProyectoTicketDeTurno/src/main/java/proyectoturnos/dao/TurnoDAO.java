@@ -196,4 +196,49 @@ public class TurnoDAO {
             return false;
         }
     }
+    
+    public Turno buscarPorId(int idTurno) {
+        Turno turno = null;
+        String sql = "SELECT t.*, m.nombre AS nombre_municipio FROM turnos t LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio WHERE t.id_turno = ?";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, idTurno);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    turno = new Turno();
+                    
+                    turno.setId_turno(rs.getInt("id_turno"));
+                    turno.setCurp_alumno(rs.getString("curp_alumno"));
+                    turno.setNombre_alumno(rs.getString("nombre_alumno"));
+                    turno.setPaterno_alumno(rs.getString("paterno_alumno"));
+                    turno.setMaterno_alumno(rs.getString("materno_alumno"));
+                    turno.setNombre_solicitante(rs.getString("nombre_solicitante"));
+                    turno.setTelefono(rs.getString("telefono"));
+                    turno.setCorreo(rs.getString("correo"));
+                    turno.setNivel_educativo(rs.getString("nivel_educativo"));
+                    turno.setAsunto(rs.getString("asunto"));
+                    turno.setEstatus(rs.getString("estatus"));
+                    turno.setNumero_turno_municipio(rs.getInt("numero_turno_municipio"));
+                    
+                    Timestamp timestamp = rs.getTimestamp("fecha_creacion");
+                    if (timestamp != null) {
+                        turno.setFecha_creacion(timestamp.toLocalDateTime());
+                    }
+                    
+                    Municipio municipio = new Municipio();
+                    municipio.setId_municipio(rs.getInt("id_municipio_fk"));
+                    municipio.setNombre(rs.getString("nombre_municipio")); // Usamos el alias del JOIN.
+                    
+                    turno.setMunicipio(municipio);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar turno por ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return turno;
+    }
 }

@@ -19,42 +19,9 @@
          SERVLETS PRINCIPALES (usuarios)
     =========================================== -->
 
-    <!-- Actualizar Turno -->
-    <servlet>
-        <servlet-name>ActualizarTurnoServlet</servlet-name>
-        <servlet-class>controlador.ActualizarTurnoServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ActualizarTurnoServlet</servlet-name>
-        <url-pattern>/actualizar-turno</url-pattern>
-    </servlet-mapping>
-
-    <!-- Cancelar Turno -->
-    <servlet>
-        <servlet-name>CancelarTurnoServlet</servlet-name>
-        <servlet-class>controlador.CancelarTurnoServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CancelarTurnoServlet</servlet-name>
-        <url-pattern>/cancelar-turno</url-pattern>
-    </servlet-mapping>
-
     <!-- ==========================================
          ADMINISTRACIÓN
     =========================================== -->
-
-    <!-- Login del Admin -->
-    
-
-    <!-- Gestionar Turnos -->
-    <servlet>
-        <servlet-name>GestionarTurnosServlet</servlet-name>
-        <servlet-class>controlador.GestionarTurnosServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GestionarTurnosServlet</servlet-name>
-        <url-pattern>/admin/gestionar-turnos</url-pattern>
-    </servlet-mapping>
 
     <!-- Actualizar Estatus Turno -->
     <servlet>

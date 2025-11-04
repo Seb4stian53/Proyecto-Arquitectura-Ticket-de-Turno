@@ -13,6 +13,18 @@
 </header>
 
 <main>
+    <c:if test="${not empty success}">
+        <div class="success-message">
+            <p>${success}</p>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty error}">
+        <div class="error-message">
+            <p>${error}</p>
+        </div>
+    </c:if>
+    
     <form method="POST" action="actualizar-turno">
         <%-- El ID es crucial para que el backend sepa qué turno actualizar --%>
         <input type="hidden" name="id_turno" value="${turno.id_turno}">
@@ -39,7 +51,18 @@
         <input type="email" name="correo" value="${turno.correo}" required>
 
         <label>Nivel Educativo:</label>
-        <input type="text" name="nivel_educativo" value="${turno.nivel_educativo}" required>
+        <select name="nivel_educativo" required>
+            <option value="">Seleccione...</option>
+            <option value="Primaria" ${turno.nivel_educativo == 'Primaria' ? 'selected' : ''}>
+                Primaria
+            </option>
+            <option value="Secundaria" ${turno.nivel_educativo == 'Secundaria' ? 'selected' : ''}>
+                Secundaria
+            </option>
+            <option value="Preparatoria" ${turno.nivel_educativo == 'Preparatoria' ? 'selected' : ''}>
+                Preparatoria
+            </option>
+        </select>
 
         <label>Asunto:</label>
         <textarea name="asunto" rows="4" required>${turno.asunto}</textarea>
