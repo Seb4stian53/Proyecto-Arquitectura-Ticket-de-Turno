@@ -4,13 +4,19 @@
  */
 package proyectoturnos.controllers.Turno;
 import proyectoturnos.dao.TurnoDAO;
+import proyectoturnos.dao.AsuntoDAO;
+import proyectoturnos.dao.NivelAcademicoDAO;
 import proyectoturnos.model.Turno;
+import proyectoturnos.model.Asunto;
+import proyectoturnos.model.NivelAcademico;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author seb4s
@@ -49,6 +55,14 @@ public class ConsultarTurnoServlet extends HttpServlet {
         if (turnoEncontrado != null) {
             request.setAttribute("turno", turnoEncontrado);
             
+            AsuntoDAO asuntoDAO = new AsuntoDAO();
+            List<Asunto> listaAsuntos = asuntoDAO.obtenerTodos();
+            
+            NivelAcademicoDAO nivelAcademicoDAO = new NivelAcademicoDAO();
+            List<NivelAcademico> listaNiveles = nivelAcademicoDAO.obtenerTodos();
+            
+            request.setAttribute("listaAsuntos", listaAsuntos);
+            request.setAttribute("listaNiveles", listaNiveles);
             request.getRequestDispatcher("editar_turno.jsp").forward(request, response);
             
         } else {

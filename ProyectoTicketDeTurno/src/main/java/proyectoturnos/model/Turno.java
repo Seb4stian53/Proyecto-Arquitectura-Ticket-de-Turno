@@ -18,8 +18,8 @@ public class Turno {
     private String nombre_solicitante;
     private String telefono;
     private String correo;
-    private String nivel_educativo;
-    private String asunto;
+    private NivelAcademico nivelAcademico;
+    private Asunto asunto;
     private String estatus;
     private int numero_turno_municipio;
     private LocalDateTime fecha_creacion;
@@ -27,7 +27,7 @@ public class Turno {
     
     public Turno(){}
 
-    public Turno(int id_turno, String curp_alumno, String nombre_alumno, String paterno_alumno, String materno_alumno, String nombre_solicitante, String telefono, String correo, String nivel_educativo, String asunto, String estatus, int numero_turno_municipio, LocalDateTime fecha_creacion, Municipio municipio) {
+    public Turno(int id_turno, String curp_alumno, String nombre_alumno, String paterno_alumno, String materno_alumno, String nombre_solicitante, String telefono, String correo, NivelAcademico nivelAcademico, Asunto asunto, String estatus, int numero_turno_municipio, LocalDateTime fecha_creacion, Municipio municipio) {
         this.id_turno = id_turno;
         this.curp_alumno = curp_alumno;
         this.nombre_alumno = nombre_alumno;
@@ -36,7 +36,7 @@ public class Turno {
         this.nombre_solicitante = nombre_solicitante;
         this.telefono = telefono;
         this.correo = correo;
-        this.nivel_educativo = nivel_educativo;
+        this.nivelAcademico = nivelAcademico;
         this.asunto = asunto;
         this.estatus = estatus;
         this.numero_turno_municipio = numero_turno_municipio;
@@ -108,19 +108,19 @@ public class Turno {
         this.correo = correo;
     }
 
-    public String getNivel_educativo() {
-        return nivel_educativo;
+    public NivelAcademico getNivelAcademico() {
+        return nivelAcademico;
     }
 
-    public void setNivel_educativo(String nivel_educativo) {
-        this.nivel_educativo = nivel_educativo;
+    public void setNivelAcademico(NivelAcademico nivelAcademico) {
+        this.nivelAcademico = nivelAcademico;
     }
 
-    public String getAsunto() {
+    public Asunto getAsunto() {
         return asunto;
     }
 
-    public void setAsunto(String asunto) {
+    public void setAsunto(Asunto asunto) {
         this.asunto = asunto;
     }
 

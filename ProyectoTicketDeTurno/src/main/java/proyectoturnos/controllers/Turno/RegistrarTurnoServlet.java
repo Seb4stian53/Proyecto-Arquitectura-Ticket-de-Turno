@@ -12,8 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import proyectoturnos.dao.MunicipioDAO;
+import proyectoturnos.dao.AsuntoDAO;
+import proyectoturnos.dao.NivelAcademicoDAO;
 import proyectoturnos.dao.TurnoDAO;
 import proyectoturnos.model.Municipio;
+import proyectoturnos.model.Asunto;
+import proyectoturnos.model.NivelAcademico;
 import proyectoturnos.model.Turno;
 import proyectoturnos.service.TurnoService;
 
@@ -34,8 +38,8 @@ public class RegistrarTurnoServlet extends HttpServlet {
         String nombreSolicitante = request.getParameter("nombre_solicitante");
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
-        String nivelEducativo = request.getParameter("nivel_educativo");
-        String asunto = request.getParameter("asunto");
+        int idNivelEducativo = Integer.parseInt(request.getParameter("nivel_educativo"));
+        int idAsunto = Integer.parseInt(request.getParameter("asunto"));
         // El ID del municipio viene como String, necesitamos convertirlo a entero.
         int idMunicipio = Integer.parseInt(request.getParameter("id_municipio_fk"));
         
@@ -47,12 +51,17 @@ public class RegistrarTurnoServlet extends HttpServlet {
         nuevoTurno.setNombre_solicitante(nombreSolicitante);
         nuevoTurno.setTelefono(telefono);
         nuevoTurno.setCorreo(correo);
-        nuevoTurno.setNivel_educativo(nivelEducativo);
-        nuevoTurno.setAsunto(asunto);
+        
+        NivelAcademico nivelTemp = new NivelAcademico();
+        nivelTemp.setId_nivel(idNivelEducativo);
+        nuevoTurno.setNivelAcademico(nivelTemp);
+        
+        Asunto asuntoTemp = new Asunto();
+        asuntoTemp.setId_asunto(idAsunto);
+        nuevoTurno.setAsunto(asuntoTemp);
         
         Municipio municipioTemp = new Municipio();
         municipioTemp.setId_municipio(idMunicipio);
-        
         nuevoTurno.setMunicipio(municipioTemp);
         
         TurnoService turnoService = new TurnoService();
@@ -75,10 +84,19 @@ public class RegistrarTurnoServlet extends HttpServlet {
             e.printStackTrace(); 
             
             request.setAttribute("error", e.getMessage());
-            MunicipioDAO municipioDAO = new MunicipioDAO();
-            List<Municipio> listaMunicipios = municipioDAO.obtenerTodos();
-            request.setAttribute("listaMunicipios", listaMunicipios);
+            
             request.getRequestDispatcher("registrar_turno.jsp").forward(request, response);
         }
+           
+    }
+    
+    private void recargarCatalogos(HttpServletRequest request) {
+        MunicipioDAO municipioDAO = new MunicipioDAO();
+        AsuntoDAO asuntoDAO = new AsuntoDAO();
+        NivelAcademicoDAO nivelDAO = new NivelAcademicoDAO();
+        
+        request.setAttribute("listaMunicipios", municipioDAO.obtenerTodos());
+        request.setAttribute("listaAsuntos", asuntoDAO.obtenerTodos());
+        request.setAttribute("listaNiveles", nivelDAO.obtenerTodos());
     }
 }
