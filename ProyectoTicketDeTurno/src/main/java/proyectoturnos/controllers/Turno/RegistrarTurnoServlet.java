@@ -84,7 +84,8 @@ public class RegistrarTurnoServlet extends HttpServlet {
             e.printStackTrace(); 
             
             request.setAttribute("error", e.getMessage());
-            
+            recargarCatalogos(request);
+            request.setAttribute("turnoFallido", nuevoTurno);
             request.getRequestDispatcher("registrar_turno.jsp").forward(request, response);
         }
            
