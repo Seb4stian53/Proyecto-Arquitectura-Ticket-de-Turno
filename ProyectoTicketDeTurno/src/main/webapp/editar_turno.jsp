@@ -51,21 +51,24 @@
         <input type="email" name="correo" value="${turno.correo}" required>
 
         <label>Nivel Educativo:</label>
-        <select name="nivel_educativo" required>
+        <select name="id_nivel_fk" required>
             <option value="">Seleccione...</option>
-            <option value="Primaria" ${turno.nivel_educativo == 'Primaria' ? 'selected' : ''}>
-                Primaria
-            </option>
-            <option value="Secundaria" ${turno.nivel_educativo == 'Secundaria' ? 'selected' : ''}>
-                Secundaria
-            </option>
-            <option value="Preparatoria" ${turno.nivel_educativo == 'Preparatoria' ? 'selected' : ''}>
-                Preparatoria
-            </option>
+            <c:forEach var="nivel" items="${listaNiveles}">
+                <option value="${nivel.id_nivel}" ${turno.nivelAcademico.id_nivel == nivel.id_nivel ? 'selected' : ''}>
+                    ${nivel.nombre}
+                </option>
+            </c:forEach>
         </select>
-
+        
         <label>Asunto:</label>
-        <textarea name="asunto" rows="4" required>${turno.asunto}</textarea>
+        <select name="id_asunto_fk" required>
+            <option value="">Seleccione...</option>
+            <c:forEach var="asunto" items="${listaAsuntos}">
+                <option value="${asunto.id_asunto}" ${turno.asunto.id_asunto == asunto.id_asunto ? 'selected' : ''}>
+                    ${asunto.descripcion}
+                </option>
+            </c:forEach>
+        </select>
 
         <button type="submit">Guardar Cambios</button>
     </form>

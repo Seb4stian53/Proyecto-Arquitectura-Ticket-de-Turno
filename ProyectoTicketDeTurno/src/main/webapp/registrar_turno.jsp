@@ -45,15 +45,24 @@
 
         <h2>Detalles del Turno</h2>
         <label>Nivel Educativo:</label>
-        <select name="nivel_educativo" required>
+        <select name="id_nivel_fk" required>
             <option value="">Seleccione...</option>
-            <option value="Primaria">Primaria</option>
-            <option value="Secundaria">Secundaria</option>
-            <option value="Preparatoria">Preparatoria</option>
+            <c:forEach var="nivel" items="${listaNiveles}">
+                <option value="${nivel.id_nivel}" ${nivel.id_nivel == turnoFallido.nivelAcademico.id_nivel ? 'selected' : ''}>
+                    ${nivel.nombre}
+                </option>
+            </c:forEach>
         </select>
 
         <label>Asunto:</label>
-        <textarea name="asunto" rows="3" required></textarea>
+        <select name="id_asunto_fk" required>
+            <option value="">Seleccione...</option>
+            <c:forEach var="asunto" items="${listaAsuntos}">
+                <option value="${asunto.id_asunto}" ${asunto.id_asunto == turnoFallido.asunto.id_asunto ? 'selected' : ''}>
+                    ${asunto.descripcion}
+                </option>
+            </c:forEach>
+        </select>
 
         <label>Municipio:</label>
         <select name="id_municipio_fk" required>

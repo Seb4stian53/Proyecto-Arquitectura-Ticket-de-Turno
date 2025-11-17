@@ -11,11 +11,12 @@
 <header>
     <h1>Gestión de Municipios</h1>
     <nav>
-        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
-        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
-        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
-        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
-        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
+    <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+    <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+    <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+    <a href="${pageContext.request.contextPath}/panel/asuntos">Gestionar Asuntos</a> |
+    <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+    <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
 
@@ -58,7 +59,6 @@
                         </td>
                         <td>
                             <button type="submit" class="btn">Actualizar</button>
-                            <%-- El enlace de eliminar ahora apunta al servlet de borrado --%>
                             <a href="${pageContext.request.contextPath}/panel/municipios/delete?id=${m.id_municipio}" 
                                class="btn danger"
                                onclick="return confirm('¿Estás seguro de que quieres eliminar el municipio ${m.nombre}?');">
