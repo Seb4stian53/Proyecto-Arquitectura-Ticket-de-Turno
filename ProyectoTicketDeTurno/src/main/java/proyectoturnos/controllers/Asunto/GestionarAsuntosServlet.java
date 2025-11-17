@@ -1,4 +1,4 @@
-package proyectoturnos.controllers.Turno;
+package proyectoturnos.controllers.Asunto;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,37 +9,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import proyectoturnos.dao.AsuntoDAO;
-import proyectoturnos.dao.TurnoDAO; 
 import proyectoturnos.model.Asunto;
-import proyectoturnos.model.Turno;
 
-
-@WebServlet("/panel/turno/ver")
-public class VerTurnoServlet extends HttpServlet {
-    private TurnoDAO turnoDAO;
+@WebServlet("/panel/asuntos")
+public class GestionarAsuntosServlet extends HttpServlet {
     private AsuntoDAO asuntoDAO;
 
     @Override
     public void init() {
-        turnoDAO = new TurnoDAO();
         asuntoDAO = new AsuntoDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-       
-        Turno turno = turnoDAO.buscarPorId(id);
-        
-        List<Asunto> listaAsuntos = asuntoDAO.obtenerTodos(); 
-        
 
-        request.setAttribute("turno", turno);
+        List<Asunto> listaAsuntos = asuntoDAO.obtenerTodos();
+
         request.setAttribute("listaAsuntos", listaAsuntos);
-        
-        request.getRequestDispatcher("/admin/detalle_turno_admin.jsp").forward(request, response);
+
+        request.getRequestDispatcher("/admin/gestionar_asuntos.jsp").forward(request, response);
     }
 }

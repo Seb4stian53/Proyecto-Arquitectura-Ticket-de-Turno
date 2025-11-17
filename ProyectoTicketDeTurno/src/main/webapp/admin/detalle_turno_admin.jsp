@@ -11,12 +11,13 @@
 <header>
     <h1>Detalle del Turno #${turno.numero_turno_municipio} <span class="estatus estatus-${turno.estatus} small">${turno.estatus}</span></h1>
     <nav>
-        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
-        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
-        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
-        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
-        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
-   </nav>
+    <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+    <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+    <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+    <a href="${pageContext.request.contextPath}/panel/asuntos">Gestionar Asuntos</a> |
+    <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+    <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
+    </nav>
 </header>
 <main>
     <c:if test="${param.mensaje == 'exito_estado'}">
@@ -44,7 +45,7 @@
             <h3>Información del Alumno</h3>
             <p><strong>Nombre:</strong> ${turno.nombre_alumno} ${turno.paterno_alumno} ${turno.materno_alumno}</p>
             <p><strong>CURP:</strong> ${turno.curp_alumno}</p>
-            <p><strong>Nivel Educativo:</strong> ${turno.nivel_educativo}</p>
+            <p><strong>Nivel Educativo:</strong> ${turno.nivelAcademico.nombre}</p>
         </div>
         
         <div class="info-card">
@@ -58,8 +59,16 @@
             <h3>Detalles del Turno</h3>
             <p><strong>Municipio:</strong> ${turno.municipio.nombre}</p>
             <p><strong>Fecha de Registro:</strong> ${turno.fechaFormateada} a las ${turno.horaFormateada}</p>
-            <p><strong>Asunto:</strong></p>
-            <p class="asunto-box">${turno.asunto}</p>
+           <label>Asunto:</label>
+            <select name="id_asunto_fk" required>
+            <option value="">Seleccione...</option>
+            <c:forEach var="asunto" items="${listaAsuntos}">
+                <option value="${asunto.id_asunto}" ${turno.asunto.id_asunto == asunto.id_asunto ? 'selected' : ''}>
+                    ${asunto.descripcion}
+                </option>
+            </c:forEach>
+            </select>
+
         </div>
     </div>
 

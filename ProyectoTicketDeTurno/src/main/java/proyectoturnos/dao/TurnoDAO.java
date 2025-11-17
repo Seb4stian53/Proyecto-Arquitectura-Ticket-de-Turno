@@ -53,8 +53,7 @@ public class TurnoDAO {
             }
         }
     }
-    
-    //Obtiene el ultimo numero de turno por municipio
+
     public int obtenerUltimoTurnoPorMunicipio(int id_municipio, Connection conn) throws SQLException {
         String sql = "SELECT MAX(numero_turno_municipio) FROM turnos WHERE id_municipio_fk = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -73,7 +72,7 @@ public class TurnoDAO {
     //Obtener todos los turnos
     public List<Turno> obtenerTodos() {
         List<Turno> turnos = new ArrayList<>();
-        // <-- CAMBIO: Se añaden los JOINs para las nuevas tablas.
+
         String sql = "SELECT t.*, m.nombre AS nombre_municipio, na.nombre AS nombre_nivel, a.descripcion AS desc_asunto " +
                      "FROM turnos t " +
                      "LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio " +
@@ -112,7 +111,7 @@ public class TurnoDAO {
     //Buscar un turno por CURP y id_turno
     public Turno buscarPorCurpYTurno(String curp, int numero_turno) {
         Turno turno = null;
-        // <-- CAMBIO: Se añaden los JOINs para las nuevas tablas.
+
         String sql = "SELECT t.*, m.nombre AS nombre_municipio, na.nombre AS nombre_nivel, a.descripcion AS desc_asunto " +
                      "FROM turnos t " +
                      "LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio " +
@@ -136,7 +135,7 @@ public class TurnoDAO {
     
     //Actualizar turno por parte del usuario (cambiar datos de comunicacion o asunto)
     public void actualizarTurno(Turno turno) {
-        // <-- CAMBIO: Se actualiza el SQL para usar las nuevas llaves foráneas.
+
         String sql = "UPDATE turnos SET nombre_alumno = ?, paterno_alumno = ?, materno_alumno = ?, " +
                      "nombre_solicitante = ?, telefono = ?, correo = ?, id_nivel_fk = ?, id_asunto_fk = ? " +
                      "WHERE id_turno = ?";
@@ -148,7 +147,7 @@ public class TurnoDAO {
             ps.setString(4, turno.getNombre_solicitante());
             ps.setString(5, turno.getTelefono());
             ps.setString(6, turno.getCorreo());
-            // <-- CAMBIO: Obtenemos los IDs de los objetos anidados.
+
             ps.setInt(7, turno.getNivelAcademico().getId_nivel());
             ps.setInt(8, turno.getAsunto().getId_asunto());
             ps.setInt(9, turno.getId_turno());
@@ -193,13 +192,12 @@ public class TurnoDAO {
 
     public int contarPorEstado(String estatus) {
     int total = 0;
-    // Usamos un placeholder (?) para hacer la consulta segura
+
     String sql = "SELECT COUNT(*) FROM turnos WHERE estatus = ?"; 
     
     try (Connection conn = DatabaseConnection.getInstance().getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
-        
-        // Asignamos el valor del estado al placeholder
+
         ps.setString(1, estatus); 
         
         try (ResultSet rs = ps.executeQuery()) {
@@ -217,7 +215,7 @@ public class TurnoDAO {
     
     public Turno buscarPorId(int idTurno) {
         Turno turno = null;
-        // <-- CAMBIO: Se añaden los JOINs para las nuevas tablas.
+
         String sql = "SELECT t.*, m.nombre AS nombre_municipio, na.nombre AS nombre_nivel, a.descripcion AS desc_asunto " +
                      "FROM turnos t " +
                      "LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio " +
@@ -274,5 +272,33 @@ public class TurnoDAO {
         turno.setAsunto(asunto);
 
         return turno;
+    }
+
+    public List<Turno> buscarPorTermino(String termino) {
+    List<Turno> turnos = new ArrayList<>();
+    String sql = "SELECT t.*, m.nombre AS nombre_municipio, na.nombre AS nombre_nivel, a.descripcion AS desc_asunto " +
+                 "FROM turnos t " +
+                 "LEFT JOIN municipios m ON t.id_municipio_fk = m.id_municipio " +
+                 "LEFT JOIN niveles_academicos na ON t.id_nivel_fk = na.id_nivel " +
+                 "LEFT JOIN asuntos a ON t.id_asunto_fk = a.id_asunto " +
+                 "WHERE t.curp_alumno LIKE ? OR t.nombre_alumno LIKE ? OR m.nombre LIKE ?"; // Búsqueda en CURP, nombre y municipio
+    try (Connection conn = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        String terminoBusqueda = "%" + termino + "%";
+        ps.setString(1, terminoBusqueda);
+        ps.setString(2, terminoBusqueda);
+        ps.setString(3, terminoBusqueda);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                turnos.add(mapearTurnoCompleto(rs));
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar turnos por término: " + e.getMessage());
+        e.printStackTrace();
+    }
+    return turnos;
     }
 }

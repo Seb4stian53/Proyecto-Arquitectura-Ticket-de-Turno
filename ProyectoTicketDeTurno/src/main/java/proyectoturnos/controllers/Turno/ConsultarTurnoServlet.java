@@ -3,20 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectoturnos.controllers.Turno;
-import proyectoturnos.dao.TurnoDAO;
-import proyectoturnos.dao.AsuntoDAO;
-import proyectoturnos.dao.NivelAcademicoDAO;
-import proyectoturnos.model.Turno;
-import proyectoturnos.model.Asunto;
-import proyectoturnos.model.NivelAcademico;
+import java.io.IOException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import proyectoturnos.dao.AsuntoDAO;
+import proyectoturnos.dao.NivelAcademicoDAO;
+import proyectoturnos.dao.TurnoDAO;
+import proyectoturnos.model.Asunto;
+import proyectoturnos.model.NivelAcademico;
+import proyectoturnos.model.Turno;
 /**
  *
  * @author seb4s
@@ -28,12 +28,9 @@ public class ConsultarTurnoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // --- PASO 1: LEER DATOS DEL FORMULARIO ---
         String curp = request.getParameter("curp_alumno");
         String numeroTurnoStr = request.getParameter("numero_turno_municipio");
         
-        // --- PASO 2: VALIDAR Y CONVERTIR ENTRADAS ---
-        // Es una buena práctica verificar que los datos no estén vacíos.
         if (curp == null || curp.isEmpty() || numeroTurnoStr == null || numeroTurnoStr.isEmpty()) {
             request.setAttribute("error", "Por favor, ingrese tanto la CURP como el número de turno.");
             request.getRequestDispatcher("consultar_turno.jsp").forward(request, response);

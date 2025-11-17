@@ -21,14 +21,22 @@ public class ListarTurnosServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Turno> listaTurnos = turnoDAO.obtenerTodos();
-        
-        request.setAttribute("listaTurnos", listaTurnos);
-        
-        // Lo mandamos al JSP correspondiente para que muestre la tabla
+
+        String busqueda = request.getParameter("busqueda"); // 1. Lee el parámetro de búsqueda
+
+        List<Turno> listaTurnos;
+
+        if (busqueda != null && !busqueda.trim().isEmpty()) { // 2. Filtra si hay un término de búsqueda
+            listaTurnos = turnoDAO.buscarPorTermino(busqueda); // Asumiendo que existe este método en TurnoDAO
+        } else {
+            listaTurnos = turnoDAO.obtenerTodos(); // Muestra todos los turnos si no hay búsqueda
+        }
+
+        request.setAttribute("listaTurnos", listaTurnos); // 3. Guarda los resultados en el request
+        request.setAttribute("busqueda", busqueda); // 4. Guarda el término de búsqueda para mantenerlo en el campo
+
         request.getRequestDispatcher("/admin/gestionar_turnos.jsp").forward(request, response);
     }
 }

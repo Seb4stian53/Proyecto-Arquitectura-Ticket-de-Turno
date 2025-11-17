@@ -12,7 +12,7 @@
 </header>
 
 <main>
-    <form method="POST" action="login">
+    <form method="POST" action="login" class="login-form">
         <p class="error">${error}</p>
         <label for="usuario">Usuario:</label>
         <input type="text" id="usuario" name="usuario" required>

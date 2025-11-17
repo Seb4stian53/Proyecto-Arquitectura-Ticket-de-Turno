@@ -11,11 +11,12 @@
 <header>
     <h1>Panel de Administración</h1>
     <nav>
-        <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
-        <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
-        <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
-        <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
-        <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
+    <a href="${pageContext.request.contextPath}/panel/dashboard">Dashboard</a> |
+    <a href="${pageContext.request.contextPath}/panel/turnos">Gestionar Turnos</a> |
+    <a href="${pageContext.request.contextPath}/panel/municipios">Municipios</a> |
+    <a href="${pageContext.request.contextPath}/panel/asuntos">Gestionar Asuntos</a> |
+    <a href="${pageContext.request.contextPath}/panel/admins">Gestionar Admins</a> |
+    <a href="${pageContext.request.contextPath}/logout" class="btn secondary">Cerrar Sesión</a>
     </nav>
 </header>
 
