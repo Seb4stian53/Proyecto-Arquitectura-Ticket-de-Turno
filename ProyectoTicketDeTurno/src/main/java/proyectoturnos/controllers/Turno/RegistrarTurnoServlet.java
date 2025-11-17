@@ -38,8 +38,8 @@ public class RegistrarTurnoServlet extends HttpServlet {
         String nombreSolicitante = request.getParameter("nombre_solicitante");
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
-        int idNivelEducativo = Integer.parseInt(request.getParameter("nivel_educativo"));
-        int idAsunto = Integer.parseInt(request.getParameter("asunto"));
+        int idNivelEducativo = Integer.parseInt(request.getParameter("id_nivel_fk"));
+        int idAsunto = Integer.parseInt(request.getParameter("id_asunto_fk"));
         // El ID del municipio viene como String, necesitamos convertirlo a entero.
         int idMunicipio = Integer.parseInt(request.getParameter("id_municipio_fk"));
         
